@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "(lldb) Launch cpp_template",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/cpp_template_subproject_target_name",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "CMake: build"  // when press F5, build first
+    }
+  ]
+}
