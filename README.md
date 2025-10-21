@@ -43,7 +43,7 @@ sudo apt-get install -y unzip build-essential cmake gdb git wget cmake libfmt-de
 sudo apt-get install -y python3 python3-pip python-is-python3 python3-venv
 sudo apt-get install -y liblapacke-dev liblapack-dev libboost-all-dev libopencv-dev libhdf5-dev
 sudo apt-get install -y libjson-c-dev libx11-dev openjdk-21-jdk ninja-build gnuplot vim libcpuinfo-dev libspdlog-dev
-sudo apt-get install -y clang clang-tidy clang-format clangd lldb cmake ccache pkg-config
+sudo apt-get install -y clang clang-tidy clang-format clangd mold lldb cmake ccache pkg-config
 ```
 
 - link with -lopenblas ou -lblas -llapack instead of -latlas

@@ -11,6 +11,14 @@ set(TARGET_NAME cpp_template_subproject_target_name)
 
 project(${TARGET_NAME} LANGUAGES CXX)
 
+# Prefer mold (faster), fall back to lld
+find_program(MOLD mold)
+if(MOLD)
+  add_link_options(-fuse-ld=mold)
+else()
+  add_link_options(-fuse-ld=lld)
+endif()
+
 # ===== Global defaults =====
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build." FORCE)
