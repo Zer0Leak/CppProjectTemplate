@@ -21,7 +21,7 @@ sed -i "s/cpp_template_subproject_target_name/$TARGET_NAME/g" "$SUBPROJECT_NAME/
 sed -i "s/cpp_template_subproject_target_name/$TARGET_NAME/g" "$SUBPROJECT_NAME/CMakePresets.json" 
 
 # 3. If not using RAM FS :-(
-sed -i 's|# export BUILD_FOLDER=/mnt/ram/SubProject  # to build in RAM FS|export BUILD_FOLDER=build|' "$SUBPROJECT_NAME/CMakeLists.txt"
+sed -i 's|# export BUILD_FOLDER=/mnt/ram/SubProject  # to build in RAM FS|# export BUILD_FOLDER=build|' "$SUBPROJECT_NAME/CMakeLists.txt"
 sed -i 's#/mnt/ram/SubProject#${sourceDir}/build#g' "$SUBPROJECT_NAME/CMakePresets.json"
 sed -i 's#/mnt/ram/SubProject#${workspaceFolder}/build#g' "$SUBPROJECT_NAME/.vscode/settings.json"
 ```
