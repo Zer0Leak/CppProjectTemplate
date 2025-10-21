@@ -10,16 +10,20 @@ Tempate for easly start CPP Project
 * Replace target name
 
 ```bash
+export SUBPROJECT_NAME="TheRealSubProjectName"
 export TARGET_NAME="the_real_subproject_target_name"
 
-# 1. Update CMakeLists.txt
-sed -i "s/set(TARGET_NAME cpp_template_subproject_target_name)/set(TARGET_NAME ${TARGET_NAME})/" SubProject/CMakeLists.txt
+# 1. Rename the SubProject Folder
+mv SubProject "$SUBPROJECT_NAME"
 
-# 2. Update VSCode launch.json
-sed -i "s|\"program\": \"\${workspaceFolder}/build/cpp_template_subproject_target_name\"|\"program\": \"\${workspaceFolder}/build/${TARGET_NAME}\"|" SubProject/.vscode/launch.json
+# 2. Rename Target Name
+sed -i "s/cpp_template_subproject_target_name/$TARGET_NAME/g" "$SUBPROJECT_NAME/CMakeLists.txt" 
+sed -i "s/cpp_template_subproject_target_name/$TARGET_NAME/g" "$SUBPROJECT_NAME/CMakePresets.json" 
 
-# 3. settings.json
-sed -i "s/\"cmake.defaultBuildTarget\": \"cpp_template_subproject_target_name\"/\"cmake.defaultBuildTarget\": \"${TARGET_NAME}\"/" SubProject/.vscode/settings.json
+# 3. If not using RAM FS :-(
+sed -i 's|# export BUILD_FOLDER=/mnt/ram/SubProject  # to build in RAM FS|export BUILD_FOLDER=build|' "$SUBPROJECT_NAME/CMakeLists.txt"
+sed -i 's#/mnt/ram/SubProject#${sourceDir}/build#g' "$SUBPROJECT_NAME/CMakePresets.json"
+sed -i 's#/mnt/ram/SubProject#${workspaceFolder}/build#g' "$SUBPROJECT_NAME/.vscode/settings.json"
 ```
 
 # Setup for Ubuntu 24.04

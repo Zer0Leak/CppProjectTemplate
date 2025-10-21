@@ -1,8 +1,20 @@
 {
     "cmake.generator": "Ninja",
     "cmake.configureOnOpen": true,
-    "cmake.buildDirectory": "${workspaceFolder}/build",
+
+    "cmake.useCMakePresets": "always",
+    // line below already set by presets
+    // "cmake.buildDirectory": "/mnt/ram/SubProject/${buildType}",
+    "C_Cpp.default.compileCommands": "/mnt/ram/SubProject/${buildType}/compile_commands.json",
+
+    // Keep the compile_commands.json exported by CMake
     "cmake.exportCompileCommandsFile": true,
+
+    // ensure clang compilers (same as CLI)
+    "cmake.configureArgs": [
+        "-DCMAKE_C_COMPILER=clang",
+        "-DCMAKE_CXX_COMPILER=clang++"
+    ],
 
     // 🔽 Build the active target before running it
     // "cmake.buildBeforeRun": true,
@@ -10,14 +22,13 @@
     // IntelliSense with clangd; keep cpptools only for debugging
     "C_Cpp.intelliSenseEngine": "disabled",
     "C_Cpp.default.cppStandard": "c++23",
-    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
 
     "python-envs.defaultEnvManager": "ms-python.python:system",
     "python-envs.pythonProjects": [],
 
     // auto target intro
-    "cmake.defaultBuildTarget": "cpp_template_subproject_target_name",
     "cmake.configureOnEdit": true,
+    "cmake.buildBeforeRun": true,
 
     // indent
     "editor.detectIndentation": false,
