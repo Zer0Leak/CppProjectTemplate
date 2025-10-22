@@ -19,11 +19,14 @@ mv SubProject "$SUBPROJECT_NAME"
 # 2. Rename Target Name
 sed -i "s/cpp_template_subproject_target_name/$TARGET_NAME/g" "$SUBPROJECT_NAME/CMakeLists.txt" 
 sed -i "s/cpp_template_subproject_target_name/$TARGET_NAME/g" "$SUBPROJECT_NAME/CMakePresets.json" 
+sed -i "s/SubProject/$SUBPROJECT_NAME/g" "$SUBPROJECT_NAME/CMakeLists.txt"
+sed -i "s/SubProject/$SUBPROJECT_NAME/g" "$SUBPROJECT_NAME/CMakePresets.json"
+sed -i "s/SubProject/$SUBPROJECT_NAME/g" "$SUBPROJECT_NAME/.vscode/settings.json"
 
 # 3. If not using RAM FS :-(
-sed -i 's|# export BUILD_FOLDER=/mnt/ram/SubProject  # to build in RAM FS|# export BUILD_FOLDER=build|' "$SUBPROJECT_NAME/CMakeLists.txt"
-sed -i 's#/mnt/ram/SubProject#${sourceDir}/build#g' "$SUBPROJECT_NAME/CMakePresets.json"
-sed -i 's#/mnt/ram/SubProject#${workspaceFolder}/build#g' "$SUBPROJECT_NAME/.vscode/settings.json"
+sed -i "s|# export BUILD_FOLDER=/mnt/ram/${SUBPROJECT_NAME}  # to build in RAM FS|# export BUILD_FOLDER=build|" "$SUBPROJECT_NAME/CMakeLists.txt"
+sed -i "s#/mnt/ram/${SUBPROJECT_NAME}#\${sourceDir}/build#g" "$SUBPROJECT_NAME/CMakePresets.json"
+sed -i "s#/mnt/ram/${SUBPROJECT_NAME}#\${workspaceFolder}/build#g" "$SUBPROJECT_NAME/.vscode/settings.json"
 ```
 
 # Setup for Ubuntu 24.04
