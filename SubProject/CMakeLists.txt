@@ -19,6 +19,14 @@ else()
   add_link_options(-fuse-ld=lld)
 endif()
 
+# ---------- compiler debug options ----------
+if(CMAKE_BUILD_TYPE MATCHES "Debug")
+  # -Og: keep debug-friendly optimizations
+  # -g: generate debug symbols
+  # -fno-omit-frame-pointer: better stack traces in LLDB
+  add_compile_options(-Og -g -fno-omit-frame-pointer)
+endif()
+
 # ===== Global defaults =====
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build." FORCE)
