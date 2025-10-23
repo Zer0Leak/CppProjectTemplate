@@ -161,6 +161,15 @@ if(ENABLE_OPENMP)
   target_link_libraries(${TARGET_NAME} PRIVATE OpenMP::OpenMP_CXX)
 endif()
 
+# ===== Post-build: create/update symbolic link to the latest build =====
+add_custom_command(
+    TARGET ${TARGET_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E echo "Updating 'Active' symlink → ${CMAKE_BUILD_TYPE}"
+    COMMAND ${CMAKE_COMMAND} -E remove -f "${CMAKE_BINARY_DIR}/../Active"
+    COMMAND ${CMAKE_COMMAND} -E create_symlink "${CMAKE_BINARY_DIR}" "${CMAKE_BINARY_DIR}/../Active"
+)
+
 # ===== Usage hint =====
 #
 # cmake --preset ram-debug  -DENABLE_ARRAYFIRE=OFF
