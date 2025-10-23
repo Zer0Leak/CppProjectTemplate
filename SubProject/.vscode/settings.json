@@ -59,6 +59,7 @@
     "C_Cpp.clang_format_style": "file",
     // If you use clangd extension instead of cpptools:
     "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true,
 
 
     // Set max line length for formatting/word wrap
