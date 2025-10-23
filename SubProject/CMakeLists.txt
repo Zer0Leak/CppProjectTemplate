@@ -36,7 +36,7 @@ add_executable(${TARGET_NAME}
 )
 
 target_compile_options(${TARGET_NAME} PRIVATE
-  "$<$<CONFIG:Debug>:-Og;-g;-fno-omit-frame-pointer>"
+  "$<$<CONFIG:Debug>:-O0;-g3;-fno-omit-frame-pointer>"
 )
 
 if(UNIX AND NOT APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
