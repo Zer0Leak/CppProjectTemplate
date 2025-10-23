@@ -11,38 +11,6 @@ set(TARGET_NAME cpp_template_subproject_target_name)
 
 project(${TARGET_NAME} LANGUAGES CXX)
 
-# Enforce C++23 without compiler-specific extensions
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Add libstdc++ experimental for std::format support
-add_compile_options(-stdlib=libc++)
-add_link_options(-stdlib=libc++)
-
-# Prefer mold (faster), fall back to lld, then to default linker
-find_program(MOLD_LINKER mold)
-if(MOLD_LINKER)
-  add_link_options(-fuse-ld=mold)
-  message(STATUS "Using mold linker")
-else()
-  find_program(LLD_LINKER lld)
-  if(LLD_LINKER)
-    add_link_options(-fuse-ld=lld)
-    message(STATUS "Using lld linker")
-  else()
-    message(STATUS "Using default linker")
-  endif()
-endif()
-
-# ---------- compiler debug options ----------
-if(CMAKE_BUILD_TYPE MATCHES "Debug")
-  # -Og: keep debug-friendly optimizations
-  # -g: generate debug symbols
-  # -fno-omit-frame-pointer: better stack traces in LLDB
-  add_compile_options(-Og -g -fno-omit-frame-pointer)
-endif()
-
 # ===== Global defaults =====
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build." FORCE)
@@ -67,10 +35,31 @@ add_executable(${TARGET_NAME}
   src/second.cpp
 )
 
+target_compile_options(${TARGET_NAME} PRIVATE
+  "$<$<CONFIG:Debug>:-Og;-g;-fno-omit-frame-pointer>"
+)
+
+if(UNIX AND NOT APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+  find_program(MOLD_LINKER mold)
+  if(MOLD_LINKER)
+    target_link_options(${TARGET_NAME} PRIVATE -fuse-ld=mold)
+    message(STATUS "Using mold linker")
+  else()
+    find_program(LLD_LINKER lld)
+    if(LLD_LINKER)
+      target_link_options(${TARGET_NAME} PRIVATE -fuse-ld=lld)
+      message(STATUS "Using lld linker")
+    else()
+      message(STATUS "Using default linker")
+    endif()
+  endif()
+endif()
+
+
 target_include_directories(${TARGET_NAME} PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-target_compile_features(${TARGET_NAME} PRIVATE cxx_std_23)
+
 set_target_properties(${TARGET_NAME} PROPERTIES
   CXX_STANDARD 23
   CXX_STANDARD_REQUIRED YES

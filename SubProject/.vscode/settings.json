@@ -19,9 +19,23 @@
     // 🔽 Build the active target before running it
     // "cmake.buildBeforeRun": true,
 
-    // IntelliSense with clangd; keep cpptools only for debugging
+    // Use clangd for IntelliSense, disable cpptools analysis engine
     "C_Cpp.intelliSenseEngine": "disabled",
     "C_Cpp.default.cppStandard": "c++23",
+
+    // Let CMake Tools feed include paths and defines to cpptools (for debugging)
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "clangd.arguments": [
+        "--compile-commands-dir=/mnt/ram/SubProject/build/${buildType}",
+        "--query-driver=/usr/bin/clang++,/usr/bin/clang-*",
+        "--extra-arg=-isystem/usr/include/c++/14",
+        "--extra-arg=-isystem/usr/include/x86_64-linux-gnu/c++/14"
+    ],
+
+    // Ensure fallback compiler & IntelliSense mode (mainly affects debugging, not clangd)
+    "C_Cpp.default.compilerPath": "/usr/bin/clang++",
+    "C_Cpp.default.intelliSenseMode": "linux-clang-x64",
+
 
     "python-envs.defaultEnvManager": "ms-python.python:system",
     "python-envs.pythonProjects": [],

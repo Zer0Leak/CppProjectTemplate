@@ -47,6 +47,7 @@ sudo apt-get install -y python3 python3-pip python-is-python3 python3-venv
 sudo apt-get install -y liblapacke-dev liblapack-dev libboost-all-dev libopencv-dev libhdf5-dev
 sudo apt-get install -y libjson-c-dev libx11-dev openjdk-21-jdk ninja-build gnuplot vim libcpuinfo-dev libspdlog-dev
 sudo apt-get install -y clang clang-tidy clang-format clangd mold lldb cmake ccache pkg-config
+sudo apt install libstdc++-14-dev
 ```
 
 - link with -lopenblas ou -lblas -llapack instead of -latlas
@@ -77,6 +78,22 @@ pip install --upgrade pip
 pip install -r requirements.txt
 pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
 ```
+
+# Add this to your User Settings (JSON)
+
+```json
+{
+    "workbench.colorTheme": "Default Dark+",
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.fontWeight": "bold",
+    "github.copilot.nextEditSuggestions.enabled": true,
+    // "editor.formatOnSave": true,
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.clang_format_path": "/usr/bin/clang-format"
+}
+```
+
 
 
 
