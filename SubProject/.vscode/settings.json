@@ -52,7 +52,6 @@
         "editor.insertSpaces": true,
         "editor.tabSize": 4
     },
-    // "editor.formatOnSave": true,
 
     // clang format
     "C_Cpp.formatting": "clangFormat",
@@ -70,5 +69,9 @@
     "editor.wordWrapColumn": 120,
 
     // For clang-format: enforce 120 chars
-    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: LLVM, ColumnLimit: 120 }"
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: LLVM, ColumnLimit: 120 }",
+
+    "debug.inlineValues": "on",
+    "C_Cpp.debugger.useHexFormatting": true,
+    "lldb.displayFormat": "hex"
 }
