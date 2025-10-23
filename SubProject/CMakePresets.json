@@ -9,9 +9,9 @@
   "configurePresets": [
     {
       "name": "ram-debug",
-      "displayName": "Debug (RAM /mnt/ram/SubProject/Debug)",
+      "displayName": "Debug (RAM /mnt/ram/SubProject/build/Debug)",
       "generator": "Ninja",
-      "binaryDir": "/mnt/ram/SubProject/Debug",
+      "binaryDir": "/mnt/ram/SubProject/build/Debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "clang",
@@ -21,9 +21,9 @@
     },
     {
       "name": "ram-release",
-      "displayName": "Release (RAM /mnt/ram/SubProject/Release)",
+      "displayName": "Release (RAM /mnt/ram/SubProject/build/Release)",
       "generator": "Ninja",
-      "binaryDir": "/mnt/ram/SubProject/Release",
+      "binaryDir": "/mnt/ram/SubProject/build/Release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "clang",

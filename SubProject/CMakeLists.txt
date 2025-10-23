@@ -11,12 +11,28 @@ set(TARGET_NAME cpp_template_subproject_target_name)
 
 project(${TARGET_NAME} LANGUAGES CXX)
 
-# Prefer mold (faster), fall back to lld
-find_program(MOLD mold)
-if(MOLD)
+# Enforce C++23 without compiler-specific extensions
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Add libstdc++ experimental for std::format support
+add_compile_options(-stdlib=libc++)
+add_link_options(-stdlib=libc++)
+
+# Prefer mold (faster), fall back to lld, then to default linker
+find_program(MOLD_LINKER mold)
+if(MOLD_LINKER)
   add_link_options(-fuse-ld=mold)
+  message(STATUS "Using mold linker")
 else()
-  add_link_options(-fuse-ld=lld)
+  find_program(LLD_LINKER lld)
+  if(LLD_LINKER)
+    add_link_options(-fuse-ld=lld)
+    message(STATUS "Using lld linker")
+  else()
+    message(STATUS "Using default linker")
+  endif()
 endif()
 
 # ---------- compiler debug options ----------
@@ -55,6 +71,11 @@ target_include_directories(${TARGET_NAME} PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 target_compile_features(${TARGET_NAME} PRIVATE cxx_std_23)
+set_target_properties(${TARGET_NAME} PROPERTIES
+  CXX_STANDARD 23
+  CXX_STANDARD_REQUIRED YES
+  CXX_EXTENSIONS NO
+)
 
 # ===== Warnings =====
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
@@ -156,7 +177,7 @@ endif()
 # cmake --preset ram-debug  -DENABLE_ARRAYFIRE=OFF
 # cmake --preset ram-release -DENABLE_DLIB=ON
 #
-# export BUILD_FOLDER=/mnt/ram/SubProject  # to build in RAM FS
+# export BUILD_FOLDER=/mnt/ram/SubProject/build  # to build in RAM FS
 #
 # For Debug
 # cmake -S . -B "$BUILD_FOLDER/Debug" -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++

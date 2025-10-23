@@ -4,8 +4,8 @@
 
     "cmake.useCMakePresets": "always",
     // line below already set by presets
-    // "cmake.buildDirectory": "/mnt/ram/SubProject/${buildType}",
-    "C_Cpp.default.compileCommands": "/mnt/ram/SubProject/${buildType}/compile_commands.json",
+    // "cmake.buildDirectory": "/mnt/ram/SubProject/build/${buildType}",
+    "C_Cpp.default.compileCommands": "/mnt/ram/SubProject/build/${buildType}/compile_commands.json",
 
     // Keep the compile_commands.json exported by CMake
     "cmake.exportCompileCommandsFile": true,
