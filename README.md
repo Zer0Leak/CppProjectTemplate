@@ -28,6 +28,7 @@ sed -i "s|# export BUILD_FOLDER=/mnt/ram/${SUBPROJECT_NAME}  # to build in RAM F
 sed -i "s#/mnt/ram/${SUBPROJECT_NAME}#\${sourceDir}/build#g" "$SUBPROJECT_NAME/CMakePresets.json"
 sed -i "s#/mnt/ram/${SUBPROJECT_NAME}#\${workspaceFolder}/build#g" "$SUBPROJECT_NAME/.vscode/settings.json"
 ```
+* Remember to copy .clang-format
 
 # Setup for Ubuntu 24.04
 
