@@ -87,6 +87,15 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
   target_compile_options(${TARGET_NAME} PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  # Only apply if Clang is older than version 19.0
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS "19.0")
+    # lies to libstdc++ that clang fully support c++ 202002. I hope it is safe. I want std::expect
+    message(STATUS "Patching Clang < 19 for libstdc++ std::expect compatibility")
+    add_compile_options(-Wno-builtin-macro-redefined -D__cpp_concepts=202002L)
+  endif()
+endif()
+
 # ===== Dependencies =====
 
 # fmt
