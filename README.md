@@ -141,6 +141,32 @@ sudo ldconfig
 },
 ```
 
+```bash
+# Download and add the LunarG signing key
+wget -qO- https://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo tee /etc/apt/trusted.gpg.d/lunarg.asc
+
+# Add the Vulkan repository for Ubuntu 24.04 (Noble)
+sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-noble.list http://packages.lunarg.com/vulkan/lunarg-vulkan-noble.list
+
+# Update your package list
+sudo apt update
+
+# 3. Install Vulkan SDK & Build Tools
+sudo apt install vulkan-sdk libvulkan-dev build-essential cmake ninja-build \
+                 libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev \
+                 libxi-dev libfreetype-dev libtinyxml2-dev
+
+# follow: https://datoviz.org/discussions/BUILD/
+```
+
+# Install PyTorch++
+```bash
+wget https://download.pytorch.org/libtorch/cu130/libtorch-shared-with-deps-2.9.1%2Bcu130.zip
+unzip libtorch-shared-with-deps-2.9.1+cu130.zip
+sudo mv libtorch /opt
+sudo echo '/opt/libtorch/lib' | sudo tee /etc/ld.so.conf.d/libtorch.conf
+sudo ldconfig
+```
 
 # Create/Activate Python Env
 
